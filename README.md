@@ -2,7 +2,7 @@
 
 这是一个文档优先的 Obsidian 研究工作台。你日常主要看 `Knowledge/`，自动推送系统、配置、缓存和脚本集中放在 `.system/`，可以在 Obsidian 里隐藏 `.system`。
 
-项目级 Codex/agent 运行规则写在 `AGENTS.md`。以后总结、归档论文或更新 Obsidian 表格时，先遵守 `paper-archive-reader` skill 和 DB Folder 论文表格协议。
+项目级 Codex/agent 运行规则写在 `AGENTS.md`。以后总结、归档论文或更新 Obsidian 表格时，先遵守 `paper-archive-reader` skill 和 Dataview 论文表格协议。
 
 ## 目录结构
 

@@ -20,15 +20,15 @@ C:\Users\huang\.codex\skills\paper-archive-reader
 
 如果目标不明确，先问用户归到哪一类；如果标题或用户表述已经明确，就直接执行。
 
-### 2. DB Folder 论文表格协议
+### 2. Dataview 论文表格协议
 
-每个方向的 `Papers/` 下都有 DB Folder 表格：
+每个方向的 `Papers/` 下都有 Dataview 表格：
 
 ```text
 Knowledge/Topics/<topic_id>/Papers/paper list.md
 ```
 
-这不是普通 Markdown 表格。新增论文时不要手动改表格行，而是创建带 frontmatter 的论文笔记。DB Folder 会自动读取字段。
+这不是手工维护的 Markdown 表格。新增论文时不要手动改表格行，而是创建带 frontmatter 的论文笔记。Dataview 会自动读取字段并展示成表格。
 
 必备 frontmatter 字段：
 

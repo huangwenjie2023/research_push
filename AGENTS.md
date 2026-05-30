@@ -33,15 +33,15 @@ The skill defines the current topic slots:
 
 If a paper's target topic is unclear, ask the user to choose one of these three. If the target is obvious from the title, abstract, or user wording, proceed without asking.
 
-### 2. Preserve The Obsidian DB Folder Paper Table Protocol
+### 2. Preserve The Obsidian Dataview Paper Table Protocol
 
-Each topic has a DB Folder table at:
+Each topic has a Dataview table at:
 
 ```text
 Knowledge/Topics/<topic_id>/Papers/paper list.md
 ```
 
-This is not a normal Markdown table. It is an Obsidian DB Folder plugin table. Do not manually edit rows in the table for ordinary paper archiving.
+This is not a manually maintained Markdown table. It is an Obsidian Dataview query table. Do not manually edit rows in the table for ordinary paper archiving.
 
 Instead, every paper note created under:
 
@@ -49,7 +49,7 @@ Instead, every paper note created under:
 Knowledge/Topics/<topic_id>/Papers/
 ```
 
-must include frontmatter fields that DB Folder can read:
+must include frontmatter fields that Dataview can read:
 
 ```yaml
 ---
