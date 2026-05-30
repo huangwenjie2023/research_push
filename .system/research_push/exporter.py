@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -33,6 +34,7 @@ def export_notes(topics: list[Topic], date_prefix: str, scoring_version: str = "
         topic_lines = topic_header(topic, date_prefix)
         for index, row in enumerate(rows, start=1):
             topic_lines.extend(format_item(index, row, topic_path))
+        create_paper_notes(topic, rows, date_prefix)
         topic_lines.extend(feedback_block(topic.id))
         topic_path.write_text("\n".join(topic_lines), encoding="utf-8")
 
@@ -50,6 +52,83 @@ def export_notes(topics: list[Topic], date_prefix: str, scoring_version: str = "
     daily_lines.extend(["## 今日反馈区", "", "- 觉得有用：", "- 想多看：", "- 想少看：", "- 临时关注点：", ""])
     daily_path.write_text("\n".join(daily_lines), encoding="utf-8")
     return total
+
+
+def create_paper_notes(topic: Topic, rows: list, date_prefix: str) -> None:
+    papers_dir = NOTES_DIR / "Topics" / topic.directory / "Papers"
+    papers_dir.mkdir(parents=True, exist_ok=True)
+    for row in rows:
+        note_path = papers_dir / f"{paper_note_slug(row)}.md"
+        if note_path.exists():
+            continue
+        note_path.write_text(paper_note_text(topic, row, note_path, date_prefix), encoding="utf-8")
+
+
+def paper_note_slug(row) -> str:
+    year = (row["published_at"] or "")[:4]
+    if not year.isdigit():
+        year = "undated"
+    source_key = row["arxiv_id"] or row["doi"] or row["id"]
+    source_key = re.sub(r"[^A-Za-z0-9]+", "-", source_key).strip("-").lower()
+    title = re.sub(r"[^A-Za-z0-9]+", "-", row["title"].lower()).strip("-")
+    title = title[:72].strip("-") or "paper"
+    return f"{year}_{title}_{source_key}"
+
+
+def paper_note_text(topic: Topic, row, note_path: Path, date_prefix: str) -> str:
+    provenance = build_provenance(row)
+    score = row["total"] if row["total"] is not None else 0
+    authors = json.loads(row["authors_json"] or "[]")
+    published_date = (row["published_at"] or date_prefix)[:10]
+    pdf_link = provenance.local_pdf_markdown(note_path)
+    code_status = "有" if row["code_url"] else "不知"
+    origin = provenance.origin_url or provenance.origin_note
+    direct = provenance.direct_url
+    summary = row["summary_text"] or row["abstract"] or ""
+    zotero_uri = zotero_link(row["zotero_key"]) if row["zotero_key"] else ""
+    lines = [
+        "---",
+        'type: "paper_note"',
+        f'title: "{yaml_escape(row["title"])}"',
+        f'date: {published_date}',
+        'read_status: "未读"',
+        f'org: "{yaml_escape(row["venue"] or row["source_id"])}"',
+        f'link: "{yaml_escape(direct)}"',
+        f'code: "{code_status}"',
+        'note: ""',
+        f'url: "{yaml_escape(origin)}"',
+        f'topic: "{topic.id}"',
+        f'source_id: "{yaml_escape(row["source_id"])}"',
+        f'doi: "{yaml_escape(row["doi"])}"',
+        f'arxiv_id: "{yaml_escape(row["arxiv_id"])}"',
+        f'pdf_status: "{yaml_escape(provenance.pdf_status)}"',
+        f'pdf_source: "{yaml_escape(provenance.pdf_source_url)}"',
+        f'pdf_local: "{yaml_escape(pdf_link)}"',
+        f'zotero: "{yaml_escape(zotero_uri)}"',
+        f'score: {score:.2f}',
+        "tags: [paper, research_push]",
+        "---",
+        "",
+        f"# {row['title']}",
+        "",
+        f"- Topic: [[../Daily/{date_prefix}|{topic.name} {date_prefix}]]",
+        f"- Score: {score:.2f}",
+        f"- Direct source: {provenance.direct_markdown}",
+        f"- Final source: {provenance.origin_markdown}",
+        f"- PDF source: {provenance.pdf_source_url or 'N/A'}",
+        f"- Local PDF: {pdf_link or 'PDF unavailable'}",
+        f"- Code: {row['code_url'] or 'Unknown'}",
+    ]
+    if authors:
+        lines.append(f"- Authors: {', '.join(authors[:12])}")
+    if row["zotero_key"]:
+        lines.append(f"- Zotero: {zotero_link(row['zotero_key'])}")
+    lines.extend(["", "## Summary", "", summary, "", "## Reading Notes", "", ""])
+    return "\n".join(lines)
+
+
+def yaml_escape(value: object) -> str:
+    return str(value or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
 def select_ranked(topic_id: str, limit: int, version: str, date_prefix: str) -> list:
