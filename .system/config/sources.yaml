@@ -1,38 +1,112 @@
 {
+  "source_layers": {
+    "paper_primary": {
+      "name": "论文主源",
+      "purpose": "发现新论文和高可信学术条目",
+      "sources": ["arxiv", "openalex", "semantic_scholar"]
+    },
+    "provenance_enrichment": {
+      "name": "溯源补强",
+      "purpose": "补 DOI、publisher、开放 PDF 和最终出处",
+      "sources": ["crossref"]
+    },
+    "code_reproducibility": {
+      "name": "代码/复现源",
+      "purpose": "发现代码仓库、复现项目和可执行资产",
+      "sources": ["github", "papers_with_code"]
+    },
+    "community_trends": {
+      "name": "社区/趋势源",
+      "purpose": "补充热点论文、社区讨论和趋势入口",
+      "sources": ["huggingface_papers", "rss"]
+    },
+    "optional_paid": {
+      "name": "可选付费源",
+      "purpose": "预算允许时补充 X、IEEE、Grok 等渠道",
+      "sources": ["ieee", "x", "grok"]
+    }
+  },
   "sources": [
     {
       "id": "arxiv",
       "type": "arxiv",
+      "layer": "paper_primary",
       "enabled": true,
       "max_results_per_topic": 25,
       "polite_delay_seconds": 3
     },
     {
+      "id": "openalex",
+      "type": "openalex",
+      "layer": "paper_primary",
+      "enabled": true,
+      "max_results_per_topic": 20,
+      "polite_delay_seconds": 1,
+      "mailto_env": "OPENALEX_MAILTO"
+    },
+    {
       "id": "semantic_scholar",
       "type": "semantic_scholar",
+      "layer": "paper_primary",
       "enabled": true,
       "max_results_per_topic": 15,
       "polite_delay_seconds": 1.5,
       "api_key_env": "SEMANTIC_SCHOLAR_API_KEY"
     },
     {
+      "id": "crossref",
+      "type": "crossref",
+      "layer": "provenance_enrichment",
+      "enabled": true,
+      "max_results_per_topic": 12,
+      "polite_delay_seconds": 1,
+      "mailto_env": "CROSSREF_MAILTO"
+    },
+    {
       "id": "github",
       "type": "github",
+      "layer": "code_reproducibility",
       "enabled": true,
       "max_results_per_topic": 10,
       "api_key_env": "GITHUB_TOKEN"
     },
     {
+      "id": "papers_with_code",
+      "type": "papers_with_code",
+      "layer": "code_reproducibility",
+      "enabled": false,
+      "max_results_per_topic": 10,
+      "note": "Papers with Code public endpoints may change; keep disabled until verified."
+    },
+    {
+      "id": "huggingface_papers",
+      "type": "huggingface_papers",
+      "layer": "community_trends",
+      "enabled": true,
+      "max_results_per_topic": 10,
+      "polite_delay_seconds": 1,
+      "url": "https://huggingface.co/papers"
+    },
+    {
       "id": "ieee",
       "type": "placeholder",
+      "layer": "optional_paid",
       "enabled": false,
       "api_key_env": "IEEE_API_KEY"
     },
     {
       "id": "x",
       "type": "placeholder",
+      "layer": "optional_paid",
       "enabled": false,
       "api_key_env": "X_BEARER_TOKEN"
+    },
+    {
+      "id": "grok",
+      "type": "placeholder",
+      "layer": "optional_paid",
+      "enabled": false,
+      "api_key_env": "GROK_API_KEY"
     }
   ]
 }
