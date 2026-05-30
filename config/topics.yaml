@@ -1,0 +1,100 @@
+{
+  "topics": [
+    {
+      "id": "point_cloud_geometry_compression",
+      "name": "AI 点云几何压缩",
+      "directory": "point_cloud_geometry_compression",
+      "daily_limit": 5,
+      "default_focus": "method_results",
+      "keywords": [
+        "point cloud compression",
+        "point cloud geometry compression",
+        "learned point cloud compression",
+        "neural point cloud compression",
+        "implicit neural representation",
+        "INR compression",
+        "geometry-based point cloud compression",
+        "G-PCC",
+        "octree compression",
+        "sparse convolution",
+        "entropy model"
+      ],
+      "expanded_keywords": [
+        "neural field compression",
+        "coordinate network",
+        "occupancy field",
+        "voxel compression",
+        "LiDAR compression",
+        "MPEG point cloud",
+        "rate distortion optimization"
+      ],
+      "negative_keywords": [
+        "image compression",
+        "video compression only",
+        "language model compression"
+      ]
+    },
+    {
+      "id": "mesh_compression",
+      "name": "AI Mesh 压缩",
+      "directory": "mesh_compression",
+      "daily_limit": 5,
+      "default_focus": "method_results",
+      "keywords": [
+        "mesh compression",
+        "learned mesh compression",
+        "neural mesh compression",
+        "3D mesh coding",
+        "mesh simplification",
+        "mesh geometry compression",
+        "connectivity compression",
+        "surface compression",
+        "triangle mesh"
+      ],
+      "expanded_keywords": [
+        "neural surface representation",
+        "mesh autoencoder",
+        "graph neural network mesh",
+        "3D asset compression",
+        "rate distortion mesh",
+        "Draco compression"
+      ],
+      "negative_keywords": [
+        "medical mesh segmentation only",
+        "textured mesh rendering only",
+        "language model compression"
+      ]
+    },
+    {
+      "id": "rl_guided_generation",
+      "name": "强化学习引导生成模型",
+      "directory": "rl_guided_generation",
+      "daily_limit": 5,
+      "default_focus": "method_results",
+      "keywords": [
+        "reinforcement learning guided generation",
+        "RL guided diffusion",
+        "reinforcement learning diffusion model",
+        "RLHF generation",
+        "reward guided generation",
+        "policy optimization generative model",
+        "direct preference optimization",
+        "diffusion policy optimization"
+      ],
+      "expanded_keywords": [
+        "PPO diffusion",
+        "reward model",
+        "preference optimization",
+        "text-to-image alignment",
+        "protein generation reinforcement learning",
+        "molecule generation reinforcement learning"
+      ],
+      "negative_keywords": [
+        "pure robotics control",
+        "game playing only",
+        "compression only"
+      ]
+    }
+  ]
+}
+

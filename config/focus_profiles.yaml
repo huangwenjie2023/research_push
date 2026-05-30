@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "method_results": {
+      "name": "方法与结果",
+      "instruction": "重点说明核心方法、压缩/生成框架、关键实验结果、和已有方法的区别。"
+    },
+    "reproducibility": {
+      "name": "可复现性",
+      "instruction": "重点说明代码、数据、训练成本、显存需求、4x48G RTX 4090 是否可做。"
+    },
+    "math_details": {
+      "name": "数学细节",
+      "instruction": "重点说明表示方式、目标函数、熵模型、奖励建模、优化过程和关键公式。"
+    },
+    "datasets_metrics": {
+      "name": "数据集与指标",
+      "instruction": "重点说明数据集、评价指标、baseline、rate-distortion 或生成质量结果。"
+    },
+    "future_ideas": {
+      "name": "课题联想",
+      "instruction": "重点提出博士课题切入点、小实验、可投稿方向和与现有研究的连接。"
+    }
+  }
+}
+

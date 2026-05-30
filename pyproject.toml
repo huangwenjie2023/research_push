@@ -1,0 +1,15 @@
+[project]
+name = "research-push"
+version = "0.1.0"
+description = "Daily research push knowledge base for Obsidian."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+pdf = ["pypdf>=4"]
+yaml = ["PyYAML>=6"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

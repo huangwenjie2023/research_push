@@ -1,0 +1,38 @@
+{
+  "sources": [
+    {
+      "id": "arxiv",
+      "type": "arxiv",
+      "enabled": true,
+      "max_results_per_topic": 25,
+      "polite_delay_seconds": 3
+    },
+    {
+      "id": "semantic_scholar",
+      "type": "semantic_scholar",
+      "enabled": true,
+      "max_results_per_topic": 15,
+      "polite_delay_seconds": 1.5,
+      "api_key_env": "SEMANTIC_SCHOLAR_API_KEY"
+    },
+    {
+      "id": "github",
+      "type": "github",
+      "enabled": true,
+      "max_results_per_topic": 10,
+      "api_key_env": "GITHUB_TOKEN"
+    },
+    {
+      "id": "ieee",
+      "type": "placeholder",
+      "enabled": false,
+      "api_key_env": "IEEE_API_KEY"
+    },
+    {
+      "id": "x",
+      "type": "placeholder",
+      "enabled": false,
+      "api_key_env": "X_BEARER_TOKEN"
+    }
+  ]
+}

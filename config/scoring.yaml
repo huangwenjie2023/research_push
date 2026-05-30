@@ -1,0 +1,36 @@
+{
+  "version": "v1",
+  "exploration_ratio": 0.15,
+  "feedback": {
+    "learning_rate": 0.12,
+    "min_weight": 0.2,
+    "max_weight": 3.0,
+    "decay": 0.92
+  },
+  "weights": {
+    "topic_relevance": 4.0,
+    "novelty": 1.4,
+    "research_value": 1.7,
+    "actionability": 1.8,
+    "hardware_fit": 1.4,
+    "representativeness": 1.0,
+    "source_quality": 1.2,
+    "diversity": 0.8,
+    "negative_match": -3.0
+  },
+  "source_quality": {
+    "arxiv": 1.0,
+    "semantic_scholar": 0.9,
+    "github": 0.65,
+    "rss": 0.55,
+    "ieee": 1.0,
+    "x": 0.35
+  },
+  "hardware": {
+    "available_gpus": 4,
+    "vram_per_gpu_gb": 48,
+    "positive_keywords": ["single gpu", "consumer gpu", "RTX 4090", "24GB", "48GB", "efficient", "lightweight", "open source"],
+    "negative_keywords": ["TPU", "A100 cluster", "H100 cluster", "thousands of GPUs", "large-scale pretraining"]
+  }
+}
+
