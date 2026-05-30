@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import re
 from pathlib import Path
-from urllib.parse import urlparse
 
 from . import db
 from .net import fetch_bytes, network_error_message
-from .paths import PAPERS_DIR
+from .paper_files import pdf_path_for_row
 
 
 def fetch_pdfs(topic_id: str | None = None, date_prefix: str | None = None, limit: int | None = None, force: bool = False) -> int:
@@ -37,25 +35,7 @@ def fetch_pdfs(topic_id: str | None = None, date_prefix: str | None = None, limi
 
 
 def pdf_path_for(row) -> Path:
-    topic_dir = PAPERS_DIR / row["topic_id"]
-    year = "unknown"
-    if row["published_at"]:
-        match = re.search(r"(19|20)\d{2}", row["published_at"])
-        if match:
-            year = match.group(0)
-    author = "unknown"
-    try:
-        import json
-
-        authors = json.loads(row["authors_json"])
-        if authors:
-            author = slugify(authors[0].split()[-1])
-    except Exception:
-        pass
-    title_slug = slugify(row["title"])[:70] or "paper"
-    ident = row["arxiv_id"] or row["doi"] or row["id"][:8]
-    ident = slugify(ident.replace("/", "_"))
-    return topic_dir / f"{year}_{author}_{title_slug}_{ident}.pdf"
+    return pdf_path_for_row(row)
 
 
 def extract_pdf_excerpt(path: Path, max_chars: int = 16000) -> str:
@@ -91,9 +71,3 @@ def upsert_pdf(con, item_id: str, path: str, status: str, error: str, text_excer
         """,
         (item_id, path, status, error, text_excerpt, db.now_iso()),
     )
-
-
-def slugify(value: str) -> str:
-    value = re.sub(r"[^A-Za-z0-9._-]+", "-", value.strip())
-    return value.strip("-").lower()
-

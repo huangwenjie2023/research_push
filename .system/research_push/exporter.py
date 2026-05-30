@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import json
-import re
 from datetime import datetime
 from pathlib import Path
 
 from . import db
 from .models import Topic
+from .paper_files import paper_note_path
 from .paths import NOTES_DIR
 from .provenance import build_provenance
 
@@ -58,21 +58,9 @@ def create_paper_notes(topic: Topic, rows: list, date_prefix: str) -> None:
     papers_dir = NOTES_DIR / "Topics" / topic.directory / "Papers"
     papers_dir.mkdir(parents=True, exist_ok=True)
     for row in rows:
-        note_path = papers_dir / f"{paper_note_slug(row)}.md"
-        if note_path.exists():
-            continue
+        note_path = paper_note_path(row)
+        note_path.parent.mkdir(parents=True, exist_ok=True)
         note_path.write_text(paper_note_text(topic, row, note_path, date_prefix), encoding="utf-8")
-
-
-def paper_note_slug(row) -> str:
-    year = (row["published_at"] or "")[:4]
-    if not year.isdigit():
-        year = "undated"
-    source_key = row["arxiv_id"] or row["doi"] or row["id"]
-    source_key = re.sub(r"[^A-Za-z0-9]+", "-", source_key).strip("-").lower()
-    title = re.sub(r"[^A-Za-z0-9]+", "-", row["title"].lower()).strip("-")
-    title = title[:72].strip("-") or "paper"
-    return f"{year}_{title}_{source_key}"
 
 
 def paper_note_text(topic: Topic, row, note_path: Path, date_prefix: str) -> str:
@@ -85,7 +73,8 @@ def paper_note_text(topic: Topic, row, note_path: Path, date_prefix: str) -> str
     origin = provenance.origin_url or provenance.origin_note
     direct = provenance.direct_url
     summary = row["summary_text"] or row["abstract"] or ""
-    zotero_uri = zotero_link(row["zotero_key"]) if row["zotero_key"] else ""
+    reading_notes = existing_reading_notes(note_path)
+    local_pdf = pdf_link or "N/A"
     lines = [
         "---",
         'type: "paper_note"',
@@ -103,32 +92,39 @@ def paper_note_text(topic: Topic, row, note_path: Path, date_prefix: str) -> str
         f'arxiv_id: "{yaml_escape(row["arxiv_id"])}"',
         f'pdf_status: "{yaml_escape(provenance.pdf_status)}"',
         f'pdf_source: "{yaml_escape(provenance.pdf_source_url)}"',
-        f'pdf_local: "{yaml_escape(pdf_link)}"',
-        f'zotero: "{yaml_escape(zotero_uri)}"',
+        f'pdf_local: "{yaml_escape(local_pdf)}"',
         f'score: {score:.2f}',
         "tags: [paper, research_push]",
         "---",
         "",
         f"# {row['title']}",
         "",
-        f"- Topic: [[../Daily/{date_prefix}|{topic.name} {date_prefix}]]",
+        f"- Topic: [[../../Daily/{date_prefix}|{topic.name} {date_prefix}]]",
         f"- Score: {score:.2f}",
         f"- Direct source: {provenance.direct_markdown}",
         f"- Final source: {provenance.origin_markdown}",
         f"- PDF source: {provenance.pdf_source_url or 'N/A'}",
-        f"- Local PDF: {pdf_link or 'PDF unavailable'}",
+        f"- Local PDF: {local_pdf}",
         f"- Code: {row['code_url'] or 'Unknown'}",
     ]
     if authors:
         lines.append(f"- Authors: {', '.join(authors[:12])}")
-    if row["zotero_key"]:
-        lines.append(f"- Zotero: {zotero_link(row['zotero_key'])}")
-    lines.extend(["", "## Summary", "", summary, "", "## Reading Notes", "", ""])
+    lines.extend(["", "## Summary", "", summary, "", "## Reading Notes", "", reading_notes])
     return "\n".join(lines)
 
 
 def yaml_escape(value: object) -> str:
     return str(value or "").replace("\\", "\\\\").replace('"', '\\"')
+
+
+def existing_reading_notes(note_path: Path) -> str:
+    if not note_path.exists():
+        return ""
+    marker = "## Reading Notes"
+    text = note_path.read_text(encoding="utf-8")
+    if marker not in text:
+        return ""
+    return text.split(marker, 1)[1].strip()
 
 
 def select_ranked(topic_id: str, limit: int, version: str, date_prefix: str) -> list:
@@ -186,10 +182,6 @@ def format_item(index: int, row, note_path: Path) -> list[str]:
         lines.append(f"- PDF 错误：{row['pdf_error']}")
     if row["code_url"]:
         lines.append(f"- 代码：{row['code_url']}")
-    if row["zotero_key"]:
-        lines.append(f"- Zotero：{zotero_link(row['zotero_key'])}")
-    if row["citation_key"]:
-        lines.append(f"- Citation key：`@{row['citation_key']}`")
     lines.extend(
         [
             f"- 评分理由：{'; '.join(reasons) if reasons else '暂无'}",
@@ -202,12 +194,6 @@ def format_item(index: int, row, note_path: Path) -> list[str]:
         ]
     )
     return lines
-
-
-def zotero_link(key: str) -> str:
-    return f"[zotero://select/library/items/{key}](zotero://select/library/items/{key})"
-
-
 def feedback_block(topic_id: str) -> list[str]:
     return [
         "## 反馈区",

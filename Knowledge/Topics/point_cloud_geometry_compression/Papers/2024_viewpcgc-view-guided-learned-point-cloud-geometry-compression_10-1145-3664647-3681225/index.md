@@ -14,23 +14,21 @@ doi: "10.1145/3664647.3681225"
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/HT38FPZJ](zotero://select/library/items/HT38FPZJ)"
+pdf_local: "N/A"
 score: 9.46
 tags: [paper, research_push]
 ---
 
 # ViewPCGC: View-Guided Learned Point Cloud Geometry Compression
 
-- Topic: [[../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
 - Score: 9.46
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/40905d2a26580014e8c5374c697dcfd33e7abf9a)
 - Final source: [DOI 最终源头](https://doi.org/10.1145/3664647.3681225)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Huiming Zheng, Wei Gao, Zhuozhen Yu, Tiesong Zhao, Ge Li
-- Zotero: [zotero://select/library/items/HT38FPZJ](zotero://select/library/items/HT38FPZJ)
 
 ## Summary
 

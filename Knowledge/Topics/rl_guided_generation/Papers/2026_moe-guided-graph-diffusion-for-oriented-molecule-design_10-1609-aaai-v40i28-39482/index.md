@@ -14,20 +14,19 @@ doi: "10.1609/aaai.v40i28.39482"
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: ""
+pdf_local: "N/A"
 score: 6.44
 tags: [paper, research_push]
 ---
 
 # MoE-Guided Graph Diffusion for Oriented Molecule Design
 
-- Topic: [[../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
 - Score: 6.44
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/d6216abc94d3c5424b15e31b85fc7b80eb3a7714)
 - Final source: [DOI 最终源头](https://doi.org/10.1609/aaai.v40i28.39482)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Shuocheng Li, Xiangqian Guo, Huobin Tan, Lei Shi
 

@@ -14,20 +14,19 @@ doi: "10.48550/arXiv.2601.21484"
 arxiv_id: "2601.21484"
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: ""
+pdf_local: "N/A"
 score: 6.67
 tags: [paper, research_push]
 ---
 
 # ETS: Energy-Guided Test-Time Scaling for Training-Free RL Alignment
 
-- Topic: [[../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
 - Score: 6.67
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/27ed2d2304de18e4819e7a673ee01331ef7bf55c)
 - Final source: [arXiv 最终源头](https://arxiv.org/abs/2601.21484)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Xiu‐Qing Li, Jinkai Zhang, Mingyang Yi, Yu Li, Long Wang, Yue Wang, Ju Fan
 

@@ -14,23 +14,21 @@ doi: "10.1109/TCSVT.2021.3051377"
 arxiv_id: "1909.12037"
 pdf_status: "downloaded"
 pdf_source: "https://arxiv.org/pdf/1909.12037"
-pdf_local: "[本地 PDF](../../../Papers/point_cloud_geometry_compression/2019_wang_lossy-point-cloud-geometry-compression-via-end-to-end-learning_1909.12037.pdf)"
-zotero: "[zotero://select/library/items/D77XCDYQ](zotero://select/library/items/D77XCDYQ)"
+pdf_local: "[本地 PDF](paper.pdf)"
 score: 10.09
 tags: [paper, research_push]
 ---
 
 # Lossy Point Cloud Geometry Compression via End-to-End Learning
 
-- Topic: [[../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
 - Score: 10.09
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/108bf3960211c76eb6d10fda63df2435fdec8008)
 - Final source: [arXiv 最终源头](https://arxiv.org/abs/1909.12037)
 - PDF source: https://arxiv.org/pdf/1909.12037
-- Local PDF: [本地 PDF](../../../Papers/point_cloud_geometry_compression/2019_wang_lossy-point-cloud-geometry-compression-via-end-to-end-learning_1909.12037.pdf)
+- Local PDF: [本地 PDF](paper.pdf)
 - Code: Unknown
 - Authors: Jianqiang Wang, Hao Zhu, Haojie Liu, Zhan Ma
-- Zotero: [zotero://select/library/items/D77XCDYQ](zotero://select/library/items/D77XCDYQ)
 
 ## Summary
 

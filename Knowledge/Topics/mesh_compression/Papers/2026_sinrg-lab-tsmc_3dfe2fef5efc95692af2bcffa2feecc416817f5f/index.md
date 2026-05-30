@@ -14,22 +14,20 @@ doi: ""
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/QV62EWN9](zotero://select/library/items/QV62EWN9)"
+pdf_local: "N/A"
 score: 6.56
 tags: [paper, research_push]
 ---
 
 # SINRG-Lab/TSMC
 
-- Topic: [[../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
 - Score: 6.56
 - Direct source: [github](https://github.com/SINRG-Lab/TSMC)
 - Final source: [GitHub 项目源头](https://github.com/SINRG-Lab/TSMC)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: https://github.com/SINRG-Lab/TSMC
-- Zotero: [zotero://select/library/items/QV62EWN9](zotero://select/library/items/QV62EWN9)
 
 ## Summary
 

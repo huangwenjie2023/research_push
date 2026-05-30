@@ -7,6 +7,7 @@ data/
 /papers/
 logs/
 Knowledge/Papers/
+Knowledge/Topics/*/Papers/**/paper.pdf
 .system/data/
 .system/logs/
 .system/__pycache__/

@@ -14,22 +14,20 @@ doi: ""
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/5GMPDT4G](zotero://select/library/items/5GMPDT4G)"
+pdf_local: "N/A"
 score: 6.82
 tags: [paper, research_push]
 ---
 
 # reveghis/3d-progressive-compression-and-decoding-2023
 
-- Topic: [[../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
 - Score: 6.82
 - Direct source: [github](https://github.com/reveghis/3d-progressive-compression-and-decoding-2023)
 - Final source: [GitHub 项目源头](https://github.com/reveghis/3d-progressive-compression-and-decoding-2023)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: https://github.com/reveghis/3d-progressive-compression-and-decoding-2023
-- Zotero: [zotero://select/library/items/5GMPDT4G](zotero://select/library/items/5GMPDT4G)
 
 ## Summary
 

@@ -14,23 +14,21 @@ doi: "10.1109/PCS60826.2024.10566435"
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/NM5ZH59J](zotero://select/library/items/NM5ZH59J)"
+pdf_local: "N/A"
 score: 9.73
 tags: [paper, research_push]
 ---
 
 # BMT-PCGC: Point Cloud Geometry Compression with Bidirectional Mask Transformer Entropy Model
 
-- Topic: [[../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
 - Score: 9.73
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/530f9cc4623f5febb807abea93ab7a9c7768b0c7)
 - Final source: [DOI 最终源头](https://doi.org/10.1109/PCS60826.2024.10566435)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Monyneath Yim, Bing-Han Wu, Jui-Chiu Chiang
-- Zotero: [zotero://select/library/items/NM5ZH59J](zotero://select/library/items/NM5ZH59J)
 
 ## Summary
 

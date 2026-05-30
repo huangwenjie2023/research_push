@@ -14,20 +14,19 @@ doi: "10.48550/arXiv.2407.12448"
 arxiv_id: "2407.12448"
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: ""
+pdf_local: "N/A"
 score: 6.21
 tags: [paper, research_push]
 ---
 
 # Energy-Guided Diffusion Sampling for Offline-to-Online Reinforcement Learning
 
-- Topic: [[../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
 - Score: 6.21
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/db36d71a93f0da577db779dc65672fe7d4c18ccf)
 - Final source: [arXiv 最终源头](https://arxiv.org/abs/2407.12448)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Xu-Hui Liu, Tian-Shuo Liu, Shengyi Jiang, Ruifeng Chen, Zhilong Zhang, Xinwei Chen, Yang Yu
 

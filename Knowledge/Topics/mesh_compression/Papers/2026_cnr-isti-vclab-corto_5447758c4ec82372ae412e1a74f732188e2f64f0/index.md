@@ -14,22 +14,20 @@ doi: ""
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/8B776GX9](zotero://select/library/items/8B776GX9)"
+pdf_local: "N/A"
 score: 5.93
 tags: [paper, research_push]
 ---
 
 # cnr-isti-vclab/corto
 
-- Topic: [[../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
 - Score: 5.93
 - Direct source: [github](https://github.com/cnr-isti-vclab/corto)
 - Final source: [GitHub 项目源头](https://github.com/cnr-isti-vclab/corto)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: https://github.com/cnr-isti-vclab/corto
-- Zotero: [zotero://select/library/items/8B776GX9](zotero://select/library/items/8B776GX9)
 
 ## Summary
 

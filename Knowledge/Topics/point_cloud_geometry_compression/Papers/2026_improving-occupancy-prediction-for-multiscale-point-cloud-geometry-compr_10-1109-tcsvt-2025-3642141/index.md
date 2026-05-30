@@ -14,23 +14,21 @@ doi: "10.1109/TCSVT.2025.3642141"
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/F4X7HMZT](zotero://select/library/items/F4X7HMZT)"
+pdf_local: "N/A"
 score: 9.29
 tags: [paper, research_push]
 ---
 
 # Improving Occupancy Prediction for Multiscale Point Cloud Geometry Compression
 
-- Topic: [[../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
 - Score: 9.29
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/87d1e87b44084613c809ae2d1c62452d48a9c8c7)
 - Final source: [DOI 最终源头](https://doi.org/10.1109/TCSVT.2025.3642141)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Zehong Li, Jiahao Zhu, Dandan Ding, Zhan Ma
-- Zotero: [zotero://select/library/items/F4X7HMZT](zotero://select/library/items/F4X7HMZT)
 
 ## Summary
 

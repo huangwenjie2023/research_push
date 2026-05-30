@@ -14,20 +14,19 @@ doi: ""
 arxiv_id: "2603.12554"
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: ""
+pdf_local: "N/A"
 score: 7.05
 tags: [paper, research_push]
 ---
 
 # Reinforcement Learning for Diffusion LLMs with Entropy-Guided Step Selection and Stepwise Advantages
 
-- Topic: [[../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
 - Score: 7.05
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/7b707b1ecff9a00121f17a736144a3087fb17f28)
 - Final source: [arXiv 最终源头](https://arxiv.org/abs/2603.12554)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Vishnu Teja Kunde, Fatemeh Doudi, Mahdi Farahbakhsh, D. Kalathil, Krishna Narayanan, J. Chamberland
 

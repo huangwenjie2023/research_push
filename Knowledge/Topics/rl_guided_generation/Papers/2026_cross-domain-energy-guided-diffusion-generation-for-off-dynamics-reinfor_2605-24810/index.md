@@ -14,20 +14,19 @@ doi: ""
 arxiv_id: "2605.24810"
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: ""
+pdf_local: "N/A"
 score: 7.20
 tags: [paper, research_push]
 ---
 
 # Cross-Domain Energy-Guided Diffusion Generation for Off-Dynamics Reinforcement Learning
 
-- Topic: [[../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|强化学习引导生成模型 2026-05-30]]
 - Score: 7.20
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/11f54cd1025beaf9de5fd2a0753762c1b36c7af9)
 - Final source: [arXiv 最终源头](https://arxiv.org/abs/2605.24810)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Yu Yang, Yi Guo, Anqi Liu, Pan Xu
 

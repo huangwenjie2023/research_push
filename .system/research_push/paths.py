@@ -15,5 +15,5 @@ DB_PATH = DATA_DIR / "research_push.sqlite3"
 
 
 def ensure_dirs() -> None:
-    for path in (DATA_DIR, NOTES_DIR, PAPERS_DIR, FEEDBACK_DIR, LOGS_DIR):
+    for path in (DATA_DIR, NOTES_DIR, FEEDBACK_DIR, LOGS_DIR):
         path.mkdir(parents=True, exist_ok=True)

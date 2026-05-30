@@ -1,41 +1,51 @@
 # research_push
 
-这是一个文档优先的 Obsidian 研究工作台。你日常主要看 `Knowledge/`，自动推送系统、配置、缓存和脚本集中放在 `.system/`，可以在 Obsidian 里隐藏 `.system`。
+这是一个文档优先的 Obsidian 研究工作台。日常主要看 `Knowledge/`；自动推送系统、配置、缓存和脚本集中放在 `.system/`，可以在 Obsidian 里隐藏。
 
-项目级 Codex/agent 运行规则写在 `AGENTS.md`。以后总结、归档论文或更新 Obsidian 表格时，先遵守 `paper-archive-reader` skill 和 Dataview 论文表格协议。
+项目级 Codex/agent 规则写在 `AGENTS.md`。以后总结、归档论文或更新 Obsidian 表格时，遵守 `paper-archive-reader` skill 和 Dataview 论文表格协议。
 
 ## 目录结构
 
 ```text
 research_push/
   Knowledge/
-    Daily/                         # 自动推送每日总览
+    Daily/                         # 每日总览
     Topics/
       point_cloud_geometry_compression/
-        Daily/                     # 点云压缩方向自动日报
-        Papers/                    # 你的精读笔记
-        Ideas/                     # 课题想法
-        Experiments/               # 实验记录
+        Daily/                     # 方向日报
+        Papers/
+          paper list.md            # Dataview 表格
+          <paper_slug>/
+            index.md               # 论文笔记
+            paper.pdf              # 可选，本地 PDF，git 忽略
+        Ideas/
+        Experiments/
       mesh_compression/
       rl_guided_generation/
-    Papers/                        # 自动下载的本地 PDF
-    Writing/                       # 综述、开题、论文、报告
-    Synthesis/                     # 周报、月报、主题地图
-    Feedback/                      # 阅读偏好和评分反馈
-
+    Writing/
+    Synthesis/
+    Feedback/
+    Overall/
   .system/
     research_push/                 # 推送代码
     config/                        # 关键词、评分、LLM、source 配置
-    scripts/                       # 本地定时脚本
-    data/                          # SQLite 缓存，已忽略
-    logs/                          # 运行日志，已忽略
+    scripts/
+    data/                          # SQLite 缓存，git 忽略
+    logs/                          # 运行日志，git 忽略
 ```
+
+真实 PDF 只放在：
+
+```text
+Knowledge/Topics/<topic_id>/Papers/<paper_slug>/paper.pdf
+```
+
+其他位置只写链接。如果没有 PDF，本地 PDF 字段写 `N/A`。
 
 ## Quick Start
 
 ```powershell
 cd E:\workshop\obsidian_file\research_push
-Copy-Item .env.example .env
 $env:PYTHONPATH = ".system"
 python -m research_push daily
 ```
@@ -53,20 +63,13 @@ python -m research_push summarize --date today --focus method_results
 python -m research_push expand --topic mesh_compression --more 10
 python -m research_push refresh --topic rl_guided_generation --query "diffusion reinforcement learning"
 python -m research_push feedback --date today
-python -m research_push zotero-init
 python -m research_push serve --host 127.0.0.1 --port 8765
 ```
 
-## 自动推送输出
-
-- `Knowledge/Daily/YYYY-MM-DD.md`：每日总览。
-- `Knowledge/Topics/<topic>/Daily/YYYY-MM-DD.md`：每个方向的日报。
-- `Knowledge/Papers/<topic>/`：公开 PDF 缓存，日报会链接到这里的本地 PDF。
-- Zotero 轻量连接：默认只创建/确认 Zotero `Research Push` collection；需要时手动同步少量精选条目，并在日报写回 `zotero://select` 链接。
-- `.system/data/research_push.sqlite3`：采集、评分、反馈、摘要缓存。
+Zotero 访问权可以保留，用于以后读取或摘数据；默认日常流程不写 Zotero，也不把 Zotero 当归档目标。
 
 ## 密钥
 
-不要把任何 API key 写进仓库。请把 GitHub token、国内模型 key、Semantic Scholar/IEEE/X key 放入本地 `.env`。
+不要把任何 API key 写进仓库。GitHub token、国内模型 key、Semantic Scholar/IEEE/X key、Zotero key 都放在本地 `.env`。
 
-如果曾经在聊天或日志中暴露 GitHub token，请先在 GitHub 中撤销并重新生成。
+如果曾经在聊天或日志中暴露 GitHub token，请先在 GitHub 撤销并重新生成。

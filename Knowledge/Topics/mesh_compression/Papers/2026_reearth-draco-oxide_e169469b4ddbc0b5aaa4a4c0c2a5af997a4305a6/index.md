@@ -14,22 +14,20 @@ doi: ""
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/BM7UENWW](zotero://select/library/items/BM7UENWW)"
+pdf_local: "N/A"
 score: 6.55
 tags: [paper, research_push]
 ---
 
 # reearth/draco-oxide
 
-- Topic: [[../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
 - Score: 6.55
 - Direct source: [github](https://github.com/reearth/draco-oxide)
 - Final source: [GitHub 项目源头](https://github.com/reearth/draco-oxide)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: https://github.com/reearth/draco-oxide
-- Zotero: [zotero://select/library/items/BM7UENWW](zotero://select/library/items/BM7UENWW)
 
 ## Summary
 

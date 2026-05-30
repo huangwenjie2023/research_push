@@ -14,22 +14,20 @@ doi: ""
 arxiv_id: ""
 pdf_status: "unavailable"
 pdf_source: ""
-pdf_local: ""
-zotero: "[zotero://select/library/items/EMEZHAAI](zotero://select/library/items/EMEZHAAI)"
+pdf_local: "N/A"
 score: 6.45
 tags: [paper, research_push]
 ---
 
 # seung-lab/DracoPy
 
-- Topic: [[../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI Mesh 压缩 2026-05-30]]
 - Score: 6.45
 - Direct source: [github](https://github.com/seung-lab/DracoPy)
 - Final source: [GitHub 项目源头](https://github.com/seung-lab/DracoPy)
 - PDF source: N/A
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: https://github.com/seung-lab/DracoPy
-- Zotero: [zotero://select/library/items/EMEZHAAI](zotero://select/library/items/EMEZHAAI)
 
 ## Summary
 

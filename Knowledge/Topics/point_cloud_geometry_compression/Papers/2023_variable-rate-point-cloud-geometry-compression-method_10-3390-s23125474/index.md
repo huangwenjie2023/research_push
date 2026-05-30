@@ -14,23 +14,21 @@ doi: "10.3390/s23125474"
 arxiv_id: ""
 pdf_status: "failed"
 pdf_source: "https://www.mdpi.com/1424-8220/23/12/5474/pdf?version=1686319542"
-pdf_local: ""
-zotero: "[zotero://select/library/items/I5X5SUBS](zotero://select/library/items/I5X5SUBS)"
+pdf_local: "N/A"
 score: 9.47
 tags: [paper, research_push]
 ---
 
 # Variable Rate Point Cloud Geometry Compression Method
 
-- Topic: [[../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
+- Topic: [[../../Daily/2026-05-30|AI 点云几何压缩 2026-05-30]]
 - Score: 9.47
 - Direct source: [semantic_scholar](https://www.semanticscholar.org/paper/551724b691ebf0c059ce66b33dc203ff949b04f8)
 - Final source: [DOI 最终源头](https://doi.org/10.3390/s23125474)
 - PDF source: https://www.mdpi.com/1424-8220/23/12/5474/pdf?version=1686319542
-- Local PDF: PDF unavailable
+- Local PDF: N/A
 - Code: Unknown
 - Authors: Lehui Zhuang, Jin Tian, Yujin Zhang, Zhi Fang
-- Zotero: [zotero://select/library/items/I5X5SUBS](zotero://select/library/items/I5X5SUBS)
 
 ## Summary
 
