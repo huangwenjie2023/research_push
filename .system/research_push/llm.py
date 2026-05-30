@@ -104,13 +104,13 @@ def build_prompt(row, focus_instruction: str) -> str:
 1. 方法：核心 idea、模型/编码框架或 RL/生成流程。
 2. 结果：压缩率/失真/速度/数据集/baseline 或生成质量指标；没有则明确说未从材料中看到。
 3. 可做方向：结合 4 张 48G RTX 4090，给一个可尝试的小实验或研究联想。
-4. 溯源：保留论文/项目链接和 PDF 状态。
+4. 溯源：同时说明直接信息源和最终论文/项目源头；如果直接信息源已经是最终源头，用几个字说明“最终源头”即可。
 
 标题：{row['title']}
 作者：{authors}
 来源：{row['source_id']} / {row['venue']}
 时间：{row['published_at']}
-链接：{row['url']}
+直接信息源：{row['url']}
 DOI：{row['doi']}
 arXiv：{row['arxiv_id']}
 PDF：{row['pdf_url']} / {pdf_status}
@@ -126,9 +126,22 @@ def heuristic_summary(row, focus: str) -> str:
     pdf_status = row["pdf_status"] or "not_fetched"
     abstract = row["abstract"] or "暂无摘要。"
     code_hint = "有代码/项目链接，适合优先检查复现。" if row["code_url"] else "暂未发现代码链接。"
+    origin = origin_sentence(row)
     return (
         f"**方法/结果速览**：{abstract[:500]}\n\n"
         f"**可做方向联想**：先检查论文实验设置、数据集和开源情况；若训练规模不大，可尝试在 4x48G RTX 4090 上复现核心模块或做小规模消融。{code_hint}\n\n"
-        f"**溯源**：[{row['title']}]({row['url']})；PDF 状态：{pdf_status}。"
+        f"**溯源**：直接信息源 [{row['source_id']}]({row['url']})；{origin}；PDF 状态：{pdf_status}。"
     )
 
+
+def origin_sentence(row) -> str:
+    if row["arxiv_id"]:
+        url = row["url"] if "arxiv.org" in row["url"] else f"https://arxiv.org/abs/{row['arxiv_id']}"
+        return f"论文源头 [arXiv 最终源头]({url})"
+    if row["doi"]:
+        return f"论文源头 [DOI 最终源头](https://doi.org/{row['doi']})"
+    if row["source_id"] == "github":
+        return "项目源头：GitHub 最终源头"
+    if row["pdf_url"]:
+        return f"论文源头 [PDF 可追溯源]({row['pdf_url']})"
+    return "暂无更上游源头"

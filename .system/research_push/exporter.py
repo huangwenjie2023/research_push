@@ -44,7 +44,8 @@ def export_notes(topics: list[Topic], date_prefix: str, scoring_version: str = "
             score = row["total"] if row["total"] is not None else 0
             pdf_link = local_pdf_link(row, daily_path)
             pdf_suffix = f" · {pdf_link}" if pdf_link else ""
-            daily_lines.append(f"{index}. **{row['title']}**（{score:.2f}） - {row['url']}{pdf_suffix}")
+            source_text = source_summary(row)
+            daily_lines.append(f"{index}. **{row['title']}**（{score:.2f}） - {source_text}{pdf_suffix}")
         daily_lines.extend(["", f"更多：[[../Topics/{topic.directory}/Daily/{date_prefix}|{topic.name} 日报]]", ""])
     daily_lines.extend(["## 今日反馈区", "", "- 觉得有用：", "- 想多看：", "- 想少看：", "- 临时关注点：", ""])
     daily_path.write_text("\n".join(daily_lines), encoding="utf-8")
@@ -91,7 +92,8 @@ def format_item(index: int, row, note_path: Path) -> list[str]:
         f"- 评分：{score:.2f}",
         f"- 来源：{row['source_id']} / {row['venue']}",
         f"- 时间：{row['published_at']}",
-        f"- 链接：{row['url']}",
+        f"- 直接信息源：{direct_source_link(row)}",
+        f"- 溯源信息：{origin_source_link(row)}",
         f"- PDF 源链接：{row['pdf_url'] or 'N/A'}",
         f"- PDF 本地状态：{row['pdf_status'] or 'not_fetched'}",
     ]
@@ -115,6 +117,36 @@ def format_item(index: int, row, note_path: Path) -> list[str]:
         ]
     )
     return lines
+
+
+def source_summary(row) -> str:
+    direct = direct_source_link(row)
+    origin = origin_source_link(row)
+    if direct == origin:
+        return f"{direct}；溯源：最终源头"
+    return f"直接源：{direct}；溯源：{origin}"
+
+
+def direct_source_link(row) -> str:
+    return markdown_link(row["source_id"] or "source", row["url"])
+
+
+def origin_source_link(row) -> str:
+    if row["arxiv_id"]:
+        arxiv_url = row["url"] if "arxiv.org" in row["url"] else f"https://arxiv.org/abs/{row['arxiv_id']}"
+        return markdown_link("arXiv 最终源头", arxiv_url)
+    if row["doi"]:
+        return markdown_link("DOI 最终源头", f"https://doi.org/{row['doi']}")
+    if row["source_id"] in {"arxiv", "github"}:
+        label = "arXiv 最终源头" if row["source_id"] == "arxiv" else "GitHub 项目源头"
+        return markdown_link(label, row["url"])
+    if row["pdf_url"]:
+        return markdown_link("PDF 可追溯源", row["pdf_url"])
+    return "暂无更上游源头；使用直接信息源"
+
+
+def markdown_link(label: str, url: str) -> str:
+    return f"[{label}]({url})" if url else label
 
 
 def local_pdf_link(row, note_path: Path) -> str:
