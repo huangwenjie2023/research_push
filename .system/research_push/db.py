@@ -88,6 +88,14 @@ def init_db(path: Path = DB_PATH) -> None:
                 state_json TEXT NOT NULL,
                 updated_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS zotero_items (
+                item_id TEXT PRIMARY KEY,
+                zotero_key TEXT NOT NULL,
+                zotero_version INTEGER NOT NULL,
+                collection_key TEXT NOT NULL,
+                citation_key TEXT NOT NULL,
+                synced_at TEXT NOT NULL
+            );
             """
         )
 
@@ -182,4 +190,3 @@ def list_items(topic_id: str | None = None, date_prefix: str | None = None, limi
         params.append(limit)
     with connect() as con:
         return con.execute(query, params).fetchall()
-

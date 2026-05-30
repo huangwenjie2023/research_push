@@ -43,6 +43,7 @@ def load_all() -> dict[str, Any]:
         "scoring": load_structured(CONFIG_DIR / "scoring.yaml"),
         "focus_profiles": load_structured(CONFIG_DIR / "focus_profiles.yaml"),
         "llm": load_structured(CONFIG_DIR / "llm.yaml"),
+        "zotero": load_structured(CONFIG_DIR / "zotero.yaml"),
     }
 
 
@@ -52,4 +53,3 @@ def today_string(value: str | None) -> str:
     if not value or value == "today":
         return datetime.now().strftime("%Y-%m-%d")
     return value
-

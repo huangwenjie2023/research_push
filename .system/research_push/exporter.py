@@ -57,11 +57,12 @@ def select_ranked(topic_id: str, limit: int, version: str, date_prefix: str) -> 
         return con.execute(
             """
             SELECT i.*, s.total, s.features_json, s.reasons_json, p.path AS pdf_path, p.status AS pdf_status,
-                   p.error AS pdf_error, sm.summary_text, sm.provider
+                   p.error AS pdf_error, sm.summary_text, sm.provider, z.zotero_key, z.citation_key
             FROM items i
             LEFT JOIN scores s ON s.item_id = i.id AND s.version = ?
             LEFT JOIN pdfs p ON p.item_id = i.id
             LEFT JOIN summaries sm ON sm.item_id = i.id
+            LEFT JOIN zotero_items z ON z.item_id = i.id
             WHERE i.topic_id = ? AND (i.published_at LIKE ? OR i.first_seen_at LIKE ?)
             ORDER BY COALESCE(s.total, 0) DESC, i.published_at DESC
             LIMIT ?
@@ -105,6 +106,10 @@ def format_item(index: int, row, note_path: Path) -> list[str]:
         lines.append(f"- PDF 错误：{row['pdf_error']}")
     if row["code_url"]:
         lines.append(f"- 代码：{row['code_url']}")
+    if row["zotero_key"]:
+        lines.append(f"- Zotero：{zotero_link(row['zotero_key'])}")
+    if row["citation_key"]:
+        lines.append(f"- Citation key：`@{row['citation_key']}`")
     lines.extend(
         [
             f"- 评分理由：{'; '.join(reasons) if reasons else '暂无'}",
@@ -147,6 +152,10 @@ def origin_source_link(row) -> str:
 
 def markdown_link(label: str, url: str) -> str:
     return f"[{label}]({url})" if url else label
+
+
+def zotero_link(key: str) -> str:
+    return f"[zotero://select/library/items/{key}](zotero://select/library/items/{key})"
 
 
 def local_pdf_link(row, note_path: Path) -> str:

@@ -51,6 +51,7 @@ python -m research_push summarize --date today --focus method_results
 python -m research_push expand --topic mesh_compression --more 10
 python -m research_push refresh --topic rl_guided_generation --query "diffusion reinforcement learning"
 python -m research_push feedback --date today
+python -m research_push zotero-init
 python -m research_push serve --host 127.0.0.1 --port 8765
 ```
 
@@ -59,6 +60,7 @@ python -m research_push serve --host 127.0.0.1 --port 8765
 - `Knowledge/Daily/YYYY-MM-DD.md`：每日总览。
 - `Knowledge/Topics/<topic>/Daily/YYYY-MM-DD.md`：每个方向的日报。
 - `Knowledge/Papers/<topic>/`：公开 PDF 缓存，日报会链接到这里的本地 PDF。
+- Zotero 轻量连接：默认只创建/确认 Zotero `Research Push` collection；需要时手动同步少量精选条目，并在日报写回 `zotero://select` 链接。
 - `.system/data/research_push.sqlite3`：采集、评分、反馈、摘要缓存。
 
 ## 密钥
@@ -66,4 +68,3 @@ python -m research_push serve --host 127.0.0.1 --port 8765
 不要把任何 API key 写进仓库。请把 GitHub token、国内模型 key、Semantic Scholar/IEEE/X key 放入本地 `.env`。
 
 如果曾经在聊天或日志中暴露 GitHub token，请先在 GitHub 中撤销并重新生成。
-

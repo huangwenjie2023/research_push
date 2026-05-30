@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-from . import db, exporter, feedback, llm, pdfs, scoring, server, sources
+from . import db, exporter, feedback, llm, pdfs, scoring, server, sources, zotero_sync
 from .config import load_all, load_env, today_string
 from .models import parse_topics
 from .paths import ensure_dirs
@@ -41,6 +41,7 @@ def main(argv: list[str] | None = None) -> int:
     daily.add_argument("--date", default="today")
     daily.add_argument("--focus", default="method_results")
     daily.add_argument("--pdf-limit", type=int, default=45)
+    daily.add_argument("--with-zotero", action="store_true")
 
     expand = sub.add_parser("expand", help="Show more ranked items for a topic.")
     expand.add_argument("--topic", required=True)
@@ -58,6 +59,14 @@ def main(argv: list[str] | None = None) -> int:
     fb.add_argument("--item-id")
     fb.add_argument("--label")
     fb.add_argument("--note", default="")
+
+    zotero = sub.add_parser("zotero-sync", help="Sync ranked research items to Zotero.")
+    zotero.add_argument("--date", default="today")
+    zotero.add_argument("--topic")
+    zotero.add_argument("--limit", type=int)
+
+    zotero_init = sub.add_parser("zotero-init", help="Create or confirm Zotero collection folders only.")
+    zotero_init.add_argument("--include-topic-folders", action="store_true")
 
     serve = sub.add_parser("serve", help="Start local interface for Codex or other models.")
     serve.add_argument("--host", default="127.0.0.1")
@@ -96,10 +105,14 @@ def main(argv: list[str] | None = None) -> int:
         scored = scoring.score_all(topics, config["scoring"])
         downloaded = pdfs.fetch_pdfs(date_prefix=date, limit=args.pdf_limit)
         summarized = llm.summarize_items(config, None, date, args.focus)
+        zotero_stats = {"enabled": False}
+        if args.with_zotero:
+            config["zotero"]["enabled"] = True
+            zotero_stats = zotero_sync.sync_daily(config, topics, date)
         exported = exporter.export_notes(topics, date, config["scoring"].get("version", "v1"))
         for warning in warnings:
             print(f"Warning: {warning}", file=sys.stderr)
-        print(f"Collected {len(items)} items ({inserted} new), scored {scored}, downloaded {downloaded} PDFs, summarized {summarized}, exported {exported}.")
+        print(f"Collected {len(items)} items ({inserted} new), scored {scored}, downloaded {downloaded} PDFs, summarized {summarized}, zotero {zotero_stats}, exported {exported}.")
         return 0
 
     if args.command == "expand":
@@ -139,9 +152,23 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         return feedback.interactive_feedback(date, args.topic, config["scoring"])
 
+    if args.command == "zotero-sync":
+        config["zotero"]["enabled"] = True
+        selected_topics = [topic for topic in topics if not args.topic or topic.id == args.topic]
+        if not selected_topics:
+            raise SystemExit(f"Unknown topic: {args.topic}")
+        stats = zotero_sync.sync_daily(config, selected_topics, date, args.limit)
+        exported = exporter.export_notes(topics, date, config["scoring"].get("version", "v1"))
+        print(f"Zotero sync {stats}; exported {exported} note entries.")
+        return 0
+
+    if args.command == "zotero-init":
+        result = zotero_sync.init_collections(config, topics, args.include_topic_folders)
+        print(f"Zotero collections ready: {result}")
+        return 0
+
     if args.command == "serve":
         server.run_server(args.host, args.port)
         return 0
 
     return 1
-

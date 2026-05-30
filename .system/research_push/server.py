@@ -4,7 +4,7 @@ import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
-from . import db, exporter, feedback, llm, pdfs, scoring, sources
+from . import db, exporter, feedback, llm, pdfs, scoring, sources, zotero_sync
 from .config import load_all, today_string
 from .models import parse_topics
 
@@ -59,6 +59,16 @@ def run_server(host: str, port: int) -> None:
                 scoring.score_all(topics, config["scoring"])
                 self.write_json({"ok": True})
                 return
+            if parsed.path == "/zotero_sync":
+                selected = [topic for topic in topics if not body.get("topic") or topic.id == body.get("topic")]
+                config["zotero"]["enabled"] = True
+                stats = zotero_sync.sync_daily(config, selected, today_string(body.get("date")), body.get("limit"))
+                self.write_json({"zotero": stats})
+                return
+            if parsed.path == "/zotero_init":
+                result = zotero_sync.init_collections(config, topics, bool(body.get("include_topic_folders", False)))
+                self.write_json({"zotero": result})
+                return
             if parsed.path == "/focus":
                 # Temporary focus preferences are intentionally returned to caller only.
                 self.write_json({"focus": body.get("focus", "method_results"), "temporary": True})
@@ -89,4 +99,3 @@ def run_server(host: str, port: int) -> None:
 def first(query: dict, key: str) -> str | None:
     values = query.get(key)
     return values[0] if values else None
-
