@@ -46,7 +46,7 @@ url:
 ## 每日总结原则
 
 - 直接信息源和最终溯源必须分开。
+- 溯源规则以 `.system/research_push/provenance.py` 为准，不要在别的文件里临时重写一套判断逻辑。
 - 有本地 PDF 时必须保留本地 PDF 链接。
 - Zotero 默认轻量连接，不在每日自动流程里频繁批量写入。
 - 需要 Zotero 时，用 `zotero-init` 或显式 `zotero-sync`。
-

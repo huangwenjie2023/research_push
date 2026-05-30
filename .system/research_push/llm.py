@@ -5,6 +5,7 @@ import os
 
 from . import db
 from .net import post_json
+from .provenance import build_provenance
 
 
 def summarize_items(config: dict, topic_id: str | None, date_prefix: str | None, focus: str, limit: int | None = None, force: bool = False) -> int:
@@ -94,8 +95,8 @@ def summarize_one(llm_config: dict, row, focus: str, focus_instruction: str) -> 
 def build_prompt(row, focus_instruction: str) -> str:
     authors = ", ".join(json.loads(row["authors_json"])[:6])
     reasons = ", ".join(json.loads(row["reasons_json"] or "[]")) if "reasons_json" in row.keys() and row["reasons_json"] else ""
-    pdf_status = row["pdf_status"] or "not_fetched"
     pdf_text = (row["text_excerpt"] or "")[:9000]
+    provenance = build_provenance(row)
     return f"""请基于元数据和 PDF 摘录写一段中文研究推送总结。
 
 关注点：{focus_instruction}
@@ -110,10 +111,11 @@ def build_prompt(row, focus_instruction: str) -> str:
 作者：{authors}
 来源：{row['source_id']} / {row['venue']}
 时间：{row['published_at']}
-直接信息源：{row['url']}
+直接信息源：{provenance.direct_url}
+最终溯源：{provenance.origin_markdown}
 DOI：{row['doi']}
 arXiv：{row['arxiv_id']}
-PDF：{row['pdf_url']} / {pdf_status}
+PDF：{provenance.pdf_source_url} / {provenance.pdf_status}
 评分理由：{reasons}
 摘要：{row['abstract']}
 
@@ -123,25 +125,11 @@ PDF 摘录：
 
 
 def heuristic_summary(row, focus: str) -> str:
-    pdf_status = row["pdf_status"] or "not_fetched"
     abstract = row["abstract"] or "暂无摘要。"
     code_hint = "有代码/项目链接，适合优先检查复现。" if row["code_url"] else "暂未发现代码链接。"
-    origin = origin_sentence(row)
+    provenance = build_provenance(row)
     return (
         f"**方法/结果速览**：{abstract[:500]}\n\n"
         f"**可做方向联想**：先检查论文实验设置、数据集和开源情况；若训练规模不大，可尝试在 4x48G RTX 4090 上复现核心模块或做小规模消融。{code_hint}\n\n"
-        f"**溯源**：直接信息源 [{row['source_id']}]({row['url']})；{origin}；PDF 状态：{pdf_status}。"
+        f"**溯源**：{provenance.llm_sentence()}"
     )
-
-
-def origin_sentence(row) -> str:
-    if row["arxiv_id"]:
-        url = row["url"] if "arxiv.org" in row["url"] else f"https://arxiv.org/abs/{row['arxiv_id']}"
-        return f"论文源头 [arXiv 最终源头]({url})"
-    if row["doi"]:
-        return f"论文源头 [DOI 最终源头](https://doi.org/{row['doi']})"
-    if row["source_id"] == "github":
-        return "项目源头：GitHub 最终源头"
-    if row["pdf_url"]:
-        return f"论文源头 [PDF 可追溯源]({row['pdf_url']})"
-    return "暂无更上游源头"

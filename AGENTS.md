@@ -97,6 +97,7 @@ Valid `code` values:
 When generating or updating daily summaries:
 
 - Keep direct source and final provenance separate.
+- Treat `.system/research_push/provenance.py` as the canonical implementation of provenance rules. Do not reimplement source/origin/PDF-link logic ad hoc in exporters or summarizers.
 - Preserve local PDF links when available.
 - Do not bypass paywalls.
 - Do not mutate Zotero during ordinary daily runs.
@@ -132,4 +133,3 @@ python -m research_push zotero-sync --date today --topic <topic_id> --limit 1
 - `.env` contains local API keys and must stay ignored.
 - Preserve unrelated Obsidian edits.
 - Commit generated notes only when the user asks to merge generated updates.
-
