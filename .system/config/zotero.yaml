@@ -3,7 +3,8 @@
   "library_type": "user",
   "api_key_env": "ZOTERO_API_KEY",
   "user_id_env": "ZOTERO_USER_ID",
-  "root_collection": "Research Push",
+  "root_collection": "research_push",
+  "collection_mode": "root_only",
   "topic_collections": {
     "point_cloud_geometry_compression": "AI Point Cloud Geometry Compression",
     "mesh_compression": "AI Mesh Compression",
@@ -11,5 +12,6 @@
   },
   "tags": ["research_push", "auto_collected"],
   "sync_top_per_topic": 0,
+  "add_only": true,
   "attach_pdf": false
 }

@@ -102,6 +102,7 @@ When generating or updating daily summaries:
 - Do not bypass paywalls.
 - Do not mutate Zotero during ordinary daily runs.
 - Only use Zotero sync when the user explicitly asks, or when the command includes `--with-zotero`.
+- Zotero sync is add-only. Use the single `research_push` collection by default, dedupe by DOI/arXiv/title, and never delete, move, or overwrite existing Zotero items.
 - Keep `Knowledge/` human-facing and `.system/` hidden/automation-facing.
 
 ## Commands

@@ -50,3 +50,4 @@ url:
 - 有本地 PDF 时必须保留本地 PDF 链接。
 - Zotero 默认轻量连接，不在每日自动流程里频繁批量写入。
 - 需要 Zotero 时，用 `zotero-init` 或显式 `zotero-sync`。
+- Zotero 同步默认只使用一个 `research_push` 文件夹，执行 add-only 策略：查重后只增加条目或关联，不删除、不移动、不覆盖已有 Zotero 内容。

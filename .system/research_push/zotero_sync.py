@@ -20,9 +20,13 @@ def sync_daily(config: dict, topics: list[Topic], date_prefix: str | None = None
     client = ZoteroClient.from_config(zotero_config)
     root_key = client.ensure_collection(zotero_config.get("root_collection", "Research Push"))
     stats = {"enabled": True, "created": 0, "updated": 0, "skipped": 0}
+    root_only = zotero_config.get("collection_mode", "root_only") == "root_only"
     for topic in topics:
-        topic_name = zotero_config.get("topic_collections", {}).get(topic.id, topic.name)
-        collection_key = client.ensure_collection(topic_name, parent_key=root_key)
+        if root_only:
+            collection_key = root_key
+        else:
+            topic_name = zotero_config.get("topic_collections", {}).get(topic.id, topic.name)
+            collection_key = client.ensure_collection(topic_name, parent_key=root_key)
         rows = select_rows_for_topic(topic.id, date_prefix, limit_per_topic or int(zotero_config.get("sync_top_per_topic", topic.daily_limit)))
         for row in rows:
             result = sync_row(client, row, collection_key, topic, zotero_config)
@@ -68,11 +72,14 @@ def sync_row(client: "ZoteroClient", row, collection_key: str, topic: Topic, con
     with db.connect() as con:
         existing = con.execute("SELECT zotero_key FROM zotero_items WHERE item_id = ?", (row["id"],)).fetchone()
     if existing:
+        # Add-only policy: never delete, move, or overwrite existing Zotero items.
+        # If this cached item is already mapped, only ensure it is present in the target collection.
         client.add_to_collection(existing["zotero_key"], collection_key)
         return "skipped"
 
     existing_key = client.find_existing(row)
     if existing_key:
+        # Add-only dedupe: reuse existing Zotero item and add the collection link only.
         client.add_to_collection(existing_key, collection_key)
         upsert_zotero_row(row["id"], existing_key, 0, collection_key, citation_key(row))
         return "updated"
