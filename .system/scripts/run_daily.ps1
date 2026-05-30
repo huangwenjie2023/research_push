@@ -21,6 +21,6 @@ if (-not $env:HTTPS_PROXY) {
     $env:HTTPS_PROXY = "http://127.0.0.1:7890"
 }
 
-New-Item -ItemType Directory -Force ".\logs" | Out-Null
-python -m research_push daily *> ".\logs\daily_$(Get-Date -Format yyyyMMdd_HHmmss).log"
-
+$env:PYTHONPATH = Join-Path $ProjectRoot ".system"
+New-Item -ItemType Directory -Force ".\.system\logs" | Out-Null
+python -m research_push daily *> ".\.system\logs\daily_$(Get-Date -Format yyyyMMdd_HHmmss).log"

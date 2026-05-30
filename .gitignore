@@ -6,7 +6,12 @@ __pycache__/
 data/
 papers/
 logs/
+Knowledge/Papers/
+.system/data/
+.system/logs/
+.system/__pycache__/
+.system/**/__pycache__/
 .obsidian/
 .claudian/
-notes/.obsidian/
-notes/.claudian/
+Knowledge/.obsidian/
+Knowledge/.claudian/

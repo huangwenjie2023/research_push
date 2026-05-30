@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -11,7 +12,7 @@ from .paths import NOTES_DIR
 
 def export_notes(topics: list[Topic], date_prefix: str, scoring_version: str = "v1", extra_limit: int = 0) -> int:
     NOTES_DIR.mkdir(parents=True, exist_ok=True)
-    daily_dir = NOTES_DIR / "daily"
+    daily_dir = NOTES_DIR / "Daily"
     daily_dir.mkdir(parents=True, exist_ok=True)
     daily_path = daily_dir / f"{date_prefix}.md"
     daily_lines = [
@@ -27,7 +28,7 @@ def export_notes(topics: list[Topic], date_prefix: str, scoring_version: str = "
         limit = topic.daily_limit + extra_limit
         rows = select_ranked(topic.id, limit, scoring_version, date_prefix)
         total += len(rows)
-        topic_path = NOTES_DIR / topic.directory / f"{date_prefix}.md"
+        topic_path = NOTES_DIR / "Topics" / topic.directory / "Daily" / f"{date_prefix}.md"
         topic_path.parent.mkdir(parents=True, exist_ok=True)
         topic_lines = topic_header(topic, date_prefix)
         for index, row in enumerate(rows, start=1):
@@ -44,7 +45,7 @@ def export_notes(topics: list[Topic], date_prefix: str, scoring_version: str = "
             pdf_link = local_pdf_link(row, daily_path)
             pdf_suffix = f" · {pdf_link}" if pdf_link else ""
             daily_lines.append(f"{index}. **{row['title']}**（{score:.2f}） - {row['url']}{pdf_suffix}")
-        daily_lines.extend(["", f"更多：[[../{topic.directory}/{date_prefix}|{topic.name} 日报]]", ""])
+        daily_lines.extend(["", f"更多：[[../Topics/{topic.directory}/Daily/{date_prefix}|{topic.name} 日报]]", ""])
     daily_lines.extend(["## 今日反馈区", "", "- 觉得有用：", "- 想多看：", "- 想少看：", "- 临时关注点：", ""])
     daily_path.write_text("\n".join(daily_lines), encoding="utf-8")
     return total
@@ -122,11 +123,7 @@ def local_pdf_link(row, note_path: Path) -> str:
     pdf_path = Path(row["pdf_path"])
     if not pdf_path.exists():
         return ""
-    relative = pdf_path.relative_to(note_path.parent).as_posix() if pdf_path.is_relative_to(note_path.parent) else None
-    if relative is None:
-        relative = Path("../" * len(note_path.parent.relative_to(NOTES_DIR.parent).parts)).joinpath(
-            pdf_path.relative_to(NOTES_DIR.parent)
-        ).as_posix()
+    relative = os.path.relpath(pdf_path, note_path.parent).replace("\\", "/")
     return f"[本地 PDF]({relative})"
 
 
@@ -134,6 +131,6 @@ def feedback_block(topic_id: str) -> list[str]:
     return [
         "## 反馈区",
         "",
-        f"可用命令：`python -m research_push feedback --date today --topic {topic_id}`",
+        f"可用命令（仓库根目录）：`$env:PYTHONPATH='.system'; python -m research_push feedback --date today --topic {topic_id}`",
         "",
     ]

@@ -1,12 +1,40 @@
 # research_push
 
-面向长期博士研究的 Obsidian 知识库推送工具。它会围绕三个方向采集论文和项目，下载可公开访问的 PDF，按可解释评分排序，并生成每日 Markdown 笔记。
+这是一个文档优先的 Obsidian 研究工作台。你日常主要看 `Knowledge/`，自动推送系统、配置、缓存和脚本集中放在 `.system/`，可以在 Obsidian 里隐藏 `.system`。
+
+## 目录结构
+
+```text
+research_push/
+  Knowledge/
+    Daily/                         # 自动推送每日总览
+    Topics/
+      point_cloud_geometry_compression/
+        Daily/                     # 点云压缩方向自动日报
+        Papers/                    # 你的精读笔记
+        Ideas/                     # 课题想法
+        Experiments/               # 实验记录
+      mesh_compression/
+      rl_guided_generation/
+    Papers/                        # 自动下载的本地 PDF
+    Writing/                       # 综述、开题、论文、报告
+    Synthesis/                     # 周报、月报、主题地图
+    Feedback/                      # 阅读偏好和评分反馈
+
+  .system/
+    research_push/                 # 推送代码
+    config/                        # 关键词、评分、LLM、source 配置
+    scripts/                       # 本地定时脚本
+    data/                          # SQLite 缓存，已忽略
+    logs/                          # 运行日志，已忽略
+```
 
 ## Quick Start
 
 ```powershell
 cd E:\workshop\obsidian_file\research_push
 Copy-Item .env.example .env
+$env:PYTHONPATH = ".system"
 python -m research_push daily
 ```
 
@@ -15,6 +43,7 @@ python -m research_push daily
 ## 常用命令
 
 ```powershell
+$env:PYTHONPATH = ".system"
 python -m research_push collect
 python -m research_push fetch-pdf --date today --topic point_cloud_geometry_compression
 python -m research_push rank --date today
@@ -25,12 +54,12 @@ python -m research_push feedback --date today
 python -m research_push serve --host 127.0.0.1 --port 8765
 ```
 
-## 输出
+## 自动推送输出
 
-- `notes/daily/YYYY-MM-DD.md`：每日总览。
-- `notes/<topic>/YYYY-MM-DD.md`：每个方向的日报。
-- `papers/<topic>/`：公开 PDF 缓存。
-- `data/research_push.sqlite3`：采集、评分、反馈、摘要缓存。
+- `Knowledge/Daily/YYYY-MM-DD.md`：每日总览。
+- `Knowledge/Topics/<topic>/Daily/YYYY-MM-DD.md`：每个方向的日报。
+- `Knowledge/Papers/<topic>/`：公开 PDF 缓存，日报会链接到这里的本地 PDF。
+- `.system/data/research_push.sqlite3`：采集、评分、反馈、摘要缓存。
 
 ## 密钥
 
